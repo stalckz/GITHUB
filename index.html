@@ -32,6 +32,34 @@
             text-align: center;
         }
 
+        nav {
+            margin-bottom: 1rem;
+        }
+
+        nav button {
+            padding: 0.5rem;
+            margin: 0 0.2rem;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            background-color: #2575fc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        nav button:hover {
+            background-color: #6a11cb;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
         h2 {
             color: #2575fc;
             font-size: 1.8rem;
@@ -85,22 +113,52 @@
 </head>
 <body>
     <div class="container">
-        <h2>Filtro de Caracteres</h2>
-        <label for="inputText">Digite o texto:</label>
-        <input type="text" id="inputText" placeholder="Digite algo aqui">
-        
-        <div>
-            <button onclick="filtrarNumeros()">Somente Números</button>
-            <button onclick="filtrarLetras()">Somente Letras</button>
+        <nav>
+            <button onclick="mostrarPagina('home')">Home</button>
+            <button onclick="mostrarPagina('filtro')">Filtro de Caracteres</button>
+            <button onclick="mostrarPagina('sobre')">Sobre</button>
+        </nav>
+
+        <!-- Página Home -->
+        <div id="home" class="page active">
+            <h2>Bem-vindo!</h2>
+            <p>Use a navegação acima para acessar as diferentes seções.</p>
         </div>
 
-        <div class="result">
-            <label for="outputText">Resultado:</label>
-            <input type="text" id="outputText" readonly>
+        <!-- Página Filtro de Caracteres -->
+        <div id="filtro" class="page">
+            <h2>Filtro de Caracteres</h2>
+            <label for="inputText">Digite o texto:</label>
+            <input type="text" id="inputText" placeholder="Digite algo aqui">
+            
+            <div>
+                <button onclick="filtrarNumeros()">Somente Números</button>
+                <button onclick="filtrarLetras()">Somente Letras</button>
+            </div>
+
+            <div class="result">
+                <label for="outputText">Resultado:</label>
+                <input type="text" id="outputText" readonly>
+            </div>
+        </div>
+
+        <!-- Página Sobre -->
+        <div id="sobre" class="page">
+            <h2>Sobre</h2>
+            <p>Este é um projeto de exemplo para demonstrar como criar subpáginas em um único HTML.</p>
         </div>
     </div>
 
     <script>
+        function mostrarPagina(paginaId) {
+            // Esconde todas as páginas
+            const paginas = document.querySelectorAll('.page');
+            paginas.forEach(pagina => pagina.classList.remove('active'));
+
+            // Mostra a página selecionada
+            document.getElementById(paginaId).classList.add('active');
+        }
+
         function filtrarNumeros() {
             const texto = document.getElementById('inputText').value;
             const apenasNumeros = texto.replace(/[^0-9]/g, '');
